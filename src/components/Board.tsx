@@ -1,5 +1,6 @@
 import React, {FC, useEffect} from "react";
-import Canvas from "./Canvas";
+import { Layer, Stage } from "react-konva";
+import CircleCanvas from "./Circle";
 
 interface BoardProps {
     size: number
@@ -16,7 +17,16 @@ const Board: FC<BoardProps> = ({ size }) => {
 
     }, []);
     return (<>
-        <Canvas width={100} height={100} draw={draw}/>
+        <Stage width={200} height={200}>
+            <Layer>
+                <CircleCanvas
+                    x={100}
+                    y={50}
+                    radius={50}
+                    fill="green"
+                />
+            </Layer>
+        </Stage>
         </>);
 };
 
