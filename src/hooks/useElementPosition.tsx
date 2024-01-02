@@ -1,4 +1,7 @@
 import React, { FC, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import { UserState } from "../reducers/UserReducers";
 
 interface useElementPositionProps {
     initialX: number,
@@ -25,10 +28,14 @@ const useElementPosition = ({
     const [ x, setX ] = useState(initialX);
     const [ y, setY ] = useState(initialY);
 
+    const { sid }: UserState = useSelector((state: RootState) => state.user);
+
     const updatePosition = ({updatedX, updatedY}: updatePositionProps) => {
         setX(updatedX);
         setY(updatedY);
     };
+
+    console.log(`User sid: ${sid}`)
 
     return {
         x,
