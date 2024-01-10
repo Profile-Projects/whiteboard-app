@@ -15,7 +15,7 @@ const CircleCanvas: FC<CircleCanvasProps> = ({
     radius,
     fill
 }) => {
-    const { x, y, updatePosition } = useElementPosition({ initialX: 0, initialY : 0})
+    const { x, y, updatePosition } = useElementPosition({ initialX: 0, initialY : 0, element_sid: "BE000001"})
 
     const onDragComplete = (e: KonvaEventObject<DragEvent>) => {
         const target = e?.target;

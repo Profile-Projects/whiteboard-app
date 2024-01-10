@@ -3,6 +3,7 @@ import { Layer, Stage } from "react-konva";
 import CircleCanvas from "./Circle";
 import useBoard from "../hooks/useBoard";
 import { ActiveBoard } from "../reducers/BoardReducers";
+import io from "socket.io-client";
 
 interface BoardProps {
     size: number
@@ -19,6 +20,7 @@ const Board: FC<BoardProps> = ({ size }) => {
     }
 
     useEffect(() => {
+        // const socket = io("http://localhost:3000");
 
     }, []);
     return (<>
