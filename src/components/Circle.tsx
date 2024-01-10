@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { Circle } from "react-konva";
 import useElementPosition from "../hooks/useElementPosition";
 import { KonvaEventObject } from "konva/lib/Node";
@@ -27,6 +27,10 @@ const CircleCanvas: FC<CircleCanvasProps> = ({
             updatedY
         })
     };
+
+    useEffect(() => {
+        console.log(`recieved updates on position : ${x} , ${y}`);
+    }, [x, y])
 
     const renderCircle = useCallback(() => {
         return (<Circle

@@ -9,7 +9,7 @@ export interface ElementAttributes {
     position: ElementPosition
 }
 
-type ElementValues = {
+export type ElementValues = {
     [key: string]: ElementAttributes
 }
 export interface ElementState {
@@ -25,13 +25,9 @@ const initialState: ElementState = {
 
 const reducers = {
     updatePositionReducer(state: ElementState, action: any) {
-        const { element_sid, position } = action?.payload;
-        const element = state.values[element_sid];
-
-        if (element && element.position) {
-            const { position: old, ...remaining } = element;
-            state.values[element_sid] = {...remaining, position};
-        }
+        const { values } = action?.payload;
+        console.log(`redi to update values ${JSON.stringify(values)}`)
+        state.values = values;
     }
 };
 

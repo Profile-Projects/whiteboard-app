@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { UserState } from "../reducers/UserReducers";
 import useSocket from "./useSocket";
-import { ElementAttributes, ElementState, updatePositionReducer } from "../reducers/ElementReducers";
+import { ElementAttributes, ElementPosition, ElementState, ElementValues, updatePositionReducer } from "../reducers/ElementReducers";
 
 interface useElementPositionProps {
     initialX: number,
@@ -31,10 +31,10 @@ const useElementPosition = ({
 
     const [ x, setX ] = useState(initialX);
     const [ y, setY ] = useState(initialY);
-
     const { sid }: UserState = useSelector((state: RootState) => state.user);
     const { values } : ElementState = useSelector((state: RootState) => state.element)
-    const { position }: ElementAttributes = values[element_sid] || {} as ElementAttributes;
+    const elementAttrs: ElementAttributes = values[element_sid] || {} as ElementAttributes;
+    const { position }: {position: ElementPosition} = elementAttrs;
 
     const dispatch = useDispatch();
 
@@ -43,7 +43,21 @@ const useElementPosition = ({
     const updatePosition = ({updatedX, updatedY}: updatePositionProps) => {
         // setX(updatedX);
         // setY(updatedY);
-        dispatch(updatePositionReducer({ element_sid: "BE000001", position: { x: updatedX, y: updatedY }} as { element_sid: string, position: {x: number, y: number}} & void))
+        const updatedPosition = { 
+            x: updatedX,
+            y: updatedY
+        };
+
+        const updatedElementValue = {
+            ...elementAttrs,
+            position: updatedPosition
+        };
+
+        const updatedValues = {
+            ...values,
+            [element_sid]: updatedElementValue
+        }
+        dispatch(updatePositionReducer({values: updatedValues} as {values: ElementValues} & void))
     };
 
     console.log(`User sid: ${sid}`)
@@ -51,6 +65,7 @@ const useElementPosition = ({
 
     useEffect(() => {
         if (!position) return;
+        console.log(`position updated from redux : ${JSON.stringify(position)}`)
         setX(position?.x);
         setY(position?.y);
     }, [position?.x, position?.y])
