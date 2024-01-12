@@ -15,6 +15,7 @@ interface useElementPositionReturnValues {
     x: number,
     y: number,
     updatePosition: (obj: any) => void,
+    joinBoard: any
 };
 
 
@@ -38,7 +39,7 @@ const useElementPosition = ({
 
     const dispatch = useDispatch();
 
-    const { socket } = useSocket({ url: "http://localhost:3000"})
+    const { socket, joinBoard } = useSocket({ url: "http://localhost:4000"})
 
     const updatePosition = ({updatedX, updatedY}: updatePositionProps) => {
         // setX(updatedX);
@@ -70,10 +71,18 @@ const useElementPosition = ({
         setY(position?.y);
     }, [position?.x, position?.y])
 
+    useEffect(() => {
+        joinBoard({
+            board_sid: "BD00001",
+            user_sid: "US00001"
+        })
+    }, [])
+
     return {
         x,
         y,
-        updatePosition
+        updatePosition,
+        joinBoard
     };
 };
 

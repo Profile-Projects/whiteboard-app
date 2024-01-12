@@ -32,7 +32,8 @@ interface useSocketProps {
 
 interface useSocketReturnValues {
     socket: any,
-    joinBoard: any
+    joinBoard: any,
+    addElement: any
 }
 
 const useSocket = ({url}: useSocketProps): useSocketReturnValues  => {
@@ -40,7 +41,15 @@ const useSocket = ({url}: useSocketProps): useSocketReturnValues  => {
     const [socket, setSocket ] = useState<any>(null);
 
     const joinBoard = ({ board_sid, user_sid }: { board_sid: string, user_sid: string}) => {
-      socket.emit(`join_board`, { board_sid, user_sid });
+      socket?.emit(`join_board`, { board_sid, user_sid });
+    }
+
+    const addElement = ({ board_sid, user_sid, position}: {
+      board_sid: string,
+      user_sid: string,
+      position: object
+    }) => {
+      socket?.emit(`add_element`, {board_sid, user_sid, position})
     }
 
     useEffect(() => {
@@ -53,9 +62,18 @@ const useSocket = ({url}: useSocketProps): useSocketReturnValues  => {
         }
     }, [url]);
 
+    useEffect(() => {
+      if (socket) {
+        joinBoard({
+          board_sid: "BD00001",
+          "user_sid": "US00001"
+        })
+      }
+    }, [socket])
     return {
       socket,
-      joinBoard
+      joinBoard,
+      addElement
     };
 };
 

@@ -10,7 +10,7 @@ interface useBoardProps {
 };
 
 interface useBoardReturnValues {
-    board: ActiveBoard
+    board: ActiveBoard,
 };
 
 const useBoard = ({}: useBoardProps): useBoardReturnValues => {

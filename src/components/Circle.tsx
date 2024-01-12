@@ -15,7 +15,7 @@ const CircleCanvas: FC<CircleCanvasProps> = ({
     radius,
     fill
 }) => {
-    const { x, y, updatePosition } = useElementPosition({ initialX: 0, initialY : 0, element_sid: "BE000001"})
+    const { x, y, updatePosition, joinBoard } = useElementPosition({ initialX: 0, initialY : 0, element_sid: "BE000001"})
 
     const onDragComplete = (e: KonvaEventObject<DragEvent>) => {
         const target = e?.target;
@@ -44,6 +44,7 @@ const CircleCanvas: FC<CircleCanvasProps> = ({
     }, [x, y])
     return <>
         {renderCircle()}
+        {/* <button onClick={() => joinBoard({  board_sid: "BD00001", "user_sid": "US00001"})} >Join</button> */}
     </>
 };
 
