@@ -31,12 +31,17 @@ interface useSocketProps {
 };
 
 interface useSocketReturnValues {
-    socket: any
+    socket: any,
+    joinBoard: any
 }
 
 const useSocket = ({url}: useSocketProps): useSocketReturnValues  => {
     
     const [socket, setSocket ] = useState<any>(null);
+
+    const joinBoard = ({ board_sid, user_sid }: { board_sid: string, user_sid: string}) => {
+      socket.emit(`join_board`, { board_sid, user_sid });
+    }
 
     useEffect(() => {
       console.log(`url : ${url}`)
@@ -49,7 +54,8 @@ const useSocket = ({url}: useSocketProps): useSocketReturnValues  => {
     }, [url]);
 
     return {
-      socket
+      socket,
+      joinBoard
     };
 };
 
