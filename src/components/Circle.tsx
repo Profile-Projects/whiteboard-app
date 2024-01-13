@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { Circle } from "react-konva";
 import useElementPosition from "../hooks/useElementPosition";
 import { KonvaEventObject } from "konva/lib/Node";
@@ -15,7 +15,7 @@ const CircleCanvas: FC<CircleCanvasProps> = ({
     radius,
     fill
 }) => {
-    const { x, y, updatePosition } = useElementPosition({ initialX: 0, initialY : 0})
+    const { x, y, updatePosition, joinBoard } = useElementPosition({ initialX: 0, initialY : 0, element_sid: "BE000001"})
 
     const onDragComplete = (e: KonvaEventObject<DragEvent>) => {
         const target = e?.target;
@@ -27,6 +27,10 @@ const CircleCanvas: FC<CircleCanvasProps> = ({
             updatedY
         })
     };
+
+    useEffect(() => {
+        console.log(`recieved updates on position : ${x} , ${y}`);
+    }, [x, y])
 
     const renderCircle = useCallback(() => {
         return (<Circle
@@ -40,6 +44,7 @@ const CircleCanvas: FC<CircleCanvasProps> = ({
     }, [x, y])
     return <>
         {renderCircle()}
+        {/* <button onClick={() => joinBoard({  board_sid: "BD00001", "user_sid": "US00001"})} >Join</button> */}
     </>
 };
 

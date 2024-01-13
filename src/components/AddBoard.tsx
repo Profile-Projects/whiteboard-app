@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import useCreateBoard from "../hooks/useCreateBoard";
 import { useForm } from "react-hook-form";
+import useAddElement from "../hooks/useAddElement";
 
 interface AddBoard {
 
@@ -20,6 +21,7 @@ const AddBoard: FC<AddBoard> = ({}) => {
         watch,
         formState: {isValid}
     } = useForm<AddBoardFormInput>();
+    const { addNewElement } = useAddElement({ board_sid: "BD000001", "user_sid": "US000001"})
 
     return (
         <div>
@@ -28,6 +30,12 @@ const AddBoard: FC<AddBoard> = ({}) => {
                 <input {...register("description")} />
             <button type="submit">Add Board</button>
             </form>
+            <button onClick={() => addNewElement({
+                position: {
+                    x: 200,
+                    y: 100
+                }
+            })}>Add Element</button>
         </div>
         
     );
