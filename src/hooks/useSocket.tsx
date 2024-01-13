@@ -44,12 +44,16 @@ const useSocket = ({url}: useSocketProps): useSocketReturnValues  => {
       socket?.emit(`join_board`, { board_sid, user_sid });
     }
 
-    const addElement = ({ board_sid, user_sid, position}: {
+    const addElement = ({ board_sid, user_sid, position, callback}: {
       board_sid: string,
       user_sid: string,
       position: object
+      callback: (sid: string) => void
     }) => {
-      socket?.emit(`add_element`, {board_sid, user_sid, position})
+      socket?.emit(`add_element`, {board_sid, user_sid, position}, (response: any) => {
+        const { sid } = response;
+        callback(sid);
+      })  
     }
 
     useEffect(() => {
