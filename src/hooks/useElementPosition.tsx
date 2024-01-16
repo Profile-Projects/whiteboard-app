@@ -6,12 +6,12 @@ import useSocket from "./useSocket";
 import { ElementAttributes, ElementPosition, ElementState, ElementValues, updatePositionReducer } from "../reducers/ElementReducers";
 
 interface useElementPositionProps {
-    initialX: number,
-    initialY: number,
+    initialX?: number,
+    initialY?: number,
     element_sid: string
 };
 
-interface useElementPositionReturnValues {
+export interface useElementPositionReturnValues {
     x: number,
     y: number,
     updatePosition: (obj: any) => void,

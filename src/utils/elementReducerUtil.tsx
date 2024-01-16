@@ -5,3 +5,8 @@ export const addElementToValues = ({ values, element, sid }: { values: ElementVa
     updated_value[sid] = element;
     return updated_value;
 };
+
+export const getElementSids = ({ values }: { values: ElementValues }) => {
+    const sids = Object.keys(values);
+    return sids || [];
+}

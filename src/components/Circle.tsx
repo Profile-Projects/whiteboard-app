@@ -6,14 +6,14 @@ import { KonvaEventObject } from "konva/lib/Node";
 interface CircleCanvasProps {
     x: number,
     y: number,
-    radius: number,
-    fill: string
+    radius?: number,
+    fill?: string
 };
 
 
 const CircleCanvas: FC<CircleCanvasProps> = ({
-    radius,
-    fill
+    radius = 10,
+    fill = "blue"
 }) => {
     const { x, y, updatePosition, joinBoard } = useElementPosition({ initialX: 0, initialY : 0, element_sid: "BE000001"})
 
